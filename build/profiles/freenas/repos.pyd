@@ -33,8 +33,8 @@ repos += {
 repos += {
     "name": "freenas",
     "path": "freenas",
-    "url": "http://github.com/dravanet/truenas-middleware.git",
-    "branch": "truenas/13.0-stable-dravanet"
+    "url": "http://github.com/k-web-s/truenas-middleware.git",
+    "branch": "truenas/13.0-stable-kwebs"
 }
 
 
