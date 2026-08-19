@@ -32,8 +32,6 @@ ports += "lang/python3"
 ports += "lang/python"
 ports += "databases/sqlite3"
 ports += "databases/py-sqlite3"
-# TODO: Is berkeleydb even used?
-ports += "databases/py-berkeleydb"
 ports += "devel/py-six"
 ports += "filesystems/py-libzfs"
 ports += "freenas/py-bsd"
