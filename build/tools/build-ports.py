@@ -230,7 +230,7 @@ def cleanup_env():
 
 def run():
     global poudriere_proc
-    poudriere_proc = sh_spawn('poudriere -e ${POUDRIERE_ROOT}/etc bulk -w -J', str(makejobs), '-f', portslist, '-j ${jailname} -p p', detach=True)
+    poudriere_proc = sh_spawn('poudriere -e ${POUDRIERE_ROOT}/etc bulk -b quarterly -w -J', str(makejobs), '-f', portslist, '-j ${jailname} -p p', detach=True)
     poudriere_proc.wait()
 
     if poudriere_proc.returncode != 0:
