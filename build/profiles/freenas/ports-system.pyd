@@ -166,6 +166,7 @@ ports += {
 ports += {
     "name": "net-mgmt/net-snmp",
     "options": [
+        "OPTIONS_FILE_SET+=AES",
         "OPTIONS_FILE_UNSET+=PERL",
         "OPTIONS_FILE_UNSET+=PERL_EMBEDDED",
         "NET_SNMP_WITHOUT_MIB_MODULE_LIST=sctp-mib"
