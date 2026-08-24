@@ -154,7 +154,7 @@ make_conf_jail = {
 
 # Packages configuration
 make_conf_pkg = {
-    "DEFAULT_VERSIONS":             "python=3.13 ssl=base",
+    "DEFAULT_VERSIONS":             "python=3.14 ssl=base",
     "OPTIONS_UNSET":                "DOCS X11 JAVA",
     "WANT_OPENLDAP_SASL":           "yes",
     "USE_PACKAGE_DEPENDS":          "yes",
