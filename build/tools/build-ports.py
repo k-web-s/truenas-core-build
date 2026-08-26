@@ -32,7 +32,7 @@ import sys
 import string
 from dsl import load_file, load_profile_config
 from utils import (
-    sh, sh_str, sh_spawn, env, e, glob, pathjoin, objdir,
+    sh, sh_str, sh_spawn, env, e, glob, walk, pathjoin, objdir,
     setfile, template, debug, error, on_abort, info
 )
 
@@ -156,6 +156,11 @@ def merge_port_trees():
         gids = "%s/%s" % (i, "GIDs")
 
         for p in glob('${i}/*/*'):
+            if os.path.isfile(p):
+                if p.endswith('.patch'):
+                    apply_port_patch(p)
+                continue
+
             portpath = '/'.join(p.split('/')[-2:])
             if portpath.startswith('Mk'):
                 if os.path.isdir(e('${PORTS_OVERLAY}/${portpath}')):
@@ -173,6 +178,32 @@ def merge_port_trees():
         if os.path.exists(gids):
             sh('rm -rf ${PORTS_OVERLAY}/GIDs')
             sh('cp -l ${gids} ${PORTS_OVERLAY}/GIDs')
+
+def dehardlink(d):
+    # PORTS_OVERLAY is built with hardlinks to PORTS_ROOT (and nas_ports).
+    # Patching those files in place would mutate the source trees, so break
+    # the hardlinks for the affected port before applying patches.
+    for rel in walk(d):
+        fp = os.path.join(d, rel)
+        if not os.path.isfile(fp):
+            continue
+        tmp = fp + '.dehardlink'
+        sh('cp -f', fp, tmp)
+        sh('mv -f', tmp, fp)
+
+
+def apply_port_patch(patchfile):
+    parts = patchfile.rstrip('/').split('/')
+    category, portfile = parts[-2], parts[-1]
+    port = os.path.splitext(portfile)[0]
+    portdir = e('${PORTS_OVERLAY}/${category}/${port}')
+    if not os.path.isdir(portdir):
+        error('Patch target port not found: %s', portdir)
+
+    info(f'Applying port patch {patchfile} to {category}/{port}')
+    dehardlink(portdir)
+    sh('patch -d', portdir, '-p0', '--forward', '-s', '-i', patchfile)
+
 
 def keep_wrkdirs():
     if e('${SAVE_DEBUG}'):
