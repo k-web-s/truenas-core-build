@@ -290,7 +290,17 @@ ports += {
     "name": "security/ca_root_nss",
     "options": ["OPTIONS_FILE_SET+=ETCSYMLINK"]
 }
-ports += "ftp/curl"
+
+ports += {
+    "name": "ftp/curl",
+    "options": ["OPTIONS_FILE_SET+=DOCS"]
+}
+
+ports += {
+    "name": "lang/rust",
+    "install": False,
+    "options": ["OPTIONS_FILE_SET+=DOCS"]
+}
 
 ports += {
     "name": "net/samba423",
@@ -351,6 +361,24 @@ ports += {
 ports += {
     "name": "security/py-asyncssh",
     "options": ["OPTIONS_FILE_UNSET+=FIDO2"]
+}
+
+ports += {
+    "name": "math/mpfr",
+    "install": False,
+    "options": ["OPTIONS_FILE_SET+=DOCS"]
+}
+
+ports += {
+    "name": "devel/cmake-core",
+    "install": False,
+    "options": ["OPTIONS_FILE_SET+=DOCS"]
+}
+
+ports += {
+    "name": "devel/ninja",
+    "install": False,
+    "options": ["OPTIONS_FILE_SET+=DOCS"]
 }
 
 if DEBUG:
