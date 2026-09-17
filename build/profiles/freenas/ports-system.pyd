@@ -112,13 +112,6 @@ ports += {
 ports += "lang/python3"
 ports += "lang/python"
 ports += "truenas/scanlnk"
-ports += {
-    "name": "sysutils/iocage",
-    "options": [
-        "OPTIONS_FILE_UNSET+=GIT",
-        "OPTIONS_FILE_SET+=GIT_LITE"
-    ]
-}
 ports += "security/pam_mkhomedir"
 ports += {
     "name": "shells/bash",

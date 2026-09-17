@@ -32,10 +32,6 @@ webui_git_rev = sh("git -C ${BE_ROOT}/webui log -1 --pretty=format:%ct") \
     if exists("${BE_ROOT}/webui") \
     else "0"
 
-iocage_git_rev = sh("git -C ${BE_ROOT}/iocage log -1 --pretty=format:%ct") \
-    if exists("${BE_ROOT}/iocage") \
-    else "0"
-
 ports += {
     "name": "freenas/freenas-files",
     "options": [
@@ -87,9 +83,10 @@ ports += {
 ports += {
     "name": "sysutils/iocage",
     "options": [
+        "OPTIONS_FILE_UNSET+=GIT",
+        "OPTIONS_FILE_SET+=GIT_LITE",
         "PRODUCT_VERSION=${VERSION}",
-        "BUILD_TIMESTAMP=${BUILD_TIMESTAMP}",
-        "REVISION=" + iocage_git_rev
+        "BUILD_TIMESTAMP=${BUILD_TIMESTAMP}"
     ]
 }
 
