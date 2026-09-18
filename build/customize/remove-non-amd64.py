@@ -48,6 +48,8 @@ def main(destdir):
 
             ret = sh_str('file ${filename}')
             if 'x86-64' not in ret and '80386' not in ret:
+                # File may have schg flag set, clear it so unlink succeeds
+                os.chflags(filename, 0)
                 os.unlink(filename)
 
 
