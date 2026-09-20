@@ -32,7 +32,7 @@ from utils import setfile, e
 def main():
     rev = e('${GIT_REVISION}')
     revstr = e('(${rev})') if rev else ''
-    setfile('${WORLD_DESTDIR}/etc/version', e('${PRODUCT}-${VERSION} ${revstr}'))
+    setfile('${WORLD_DESTDIR}/etc/version', e('${PRODUCT}-CORE-${VERSION} ${revstr}'))
 
 
 if __name__ == '__main__':
